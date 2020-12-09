@@ -1,5 +1,7 @@
 const express = require('express');
 const path = require('path');
+const fs = require('fs');
+const db = require('./db/db.json');
 
 const app = express();
 const PORT = 3000;
@@ -10,9 +12,13 @@ app.use(express.static('public'));
 
 //Import HTML routes
 const html = require('./htmlRoutes')(app);
+// ===========================================================
+
+
 
 //Import API routes
-//const api = require('./apiRoutes')(app); 
+const api = require('./apiRoutes')(app); 
+// ===========================================================
 
 // ===========================================================
 app.listen(PORT, function () {
