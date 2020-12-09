@@ -1,12 +1,12 @@
 const fs = require('fs');
-const db = require('./db/db.json');
+const db = require('../db/db.json');
 
 //Export api routes to import on server.js
 module.exports = (app) => {
 
     //GET to read the db.json file and return all saved notes as JSON
     app.get('/api/notes', (req, res) => {
-        fs.readFile('./db.json', {}, (err) => {
+        fs.readFile('../db/db.json', {}, (err) => {
             if (err) {
                 console.log(err);
             }
