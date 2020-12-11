@@ -1,17 +1,13 @@
 const fs = require('fs');
 const db = require('../db/db.json');
 
+
 //Export api routes to import on server.js
 module.exports = (app) => {
 
     //GET to read the db.json file and return all saved notes as JSON
     app.get('/api/notes', (req, res) => {
-        // fs.readFile('../db/db.json', {}, (err) => {
-        //     if (err) {
-        //         console.log(err);
-        //     }
-        // })
-        console.log(db);
+        //console.log(db);
         res.json(db);
 
     });
@@ -27,24 +23,25 @@ module.exports = (app) => {
         //Pushes new note to json file
         db.push(newNote);
         //Return new note to client
-        //console.log(db);
+        //console.log(db.id);
         res.json(db);
     })
     
     //DELETE to receive a query param containing the id of the note to delete
     //Each note will need a unique id
-    app.delete('api/notes/:id', (req, res) => {
+    app.delete('/api/notes/:id', (req, res) => {
         //Receives a query param containing the id of the note to delete
         const deleteNote = req.params.id;
-        //Finds id of note entry
-        const foundNote = db.find(
-            (entryID) => foundNote(entryID).id === deleteNote
-        );
-        //If note id does not exist
-        res.json(foundNote ? foundNote : { error: `Note ${deleteNote} was not found.`});
+        
+        //Finds the id of the note we want to delete, stored in variable noteToDelete
+        const noteToDelete = db.find((note) => {
+           return note.id === deleteNote; 
+        })
+        console.log(noteToDelete)
 
         //Deletes note if it exists
-        db.splice(foundNote, 1);
+        db.splice(noteToDelete);
+        
 
         return res.json({
             message: 'Note has been deleted'
