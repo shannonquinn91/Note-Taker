@@ -32,19 +32,18 @@ module.exports = (app) => {
     app.delete('/api/notes/:id', (req, res) => {
         //Receives a query param containing the id of the note to delete
         const deleteNote = req.params.id;
-        console.log('line 35', req)
+
         //Finds the id of the note we want to delete, stored in variable noteToDelete
         const noteToDelete = db.find((note) => {
            return note.id === deleteNote; 
         })
-        console.log('line 40', db)
+        
+        //Finds the index of the note we want to delete, stored in index variable
         const index = db.indexOf(noteToDelete);
-        console.log(index);
+        //console.log(index);
 
         //Deletes note if it exists
         db.splice(index);
-        console.log('line 44', db)
-        
 
         return res.json({
             message: 'Note has been deleted'
